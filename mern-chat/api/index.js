@@ -194,6 +194,42 @@ wss.on('connection', (connection, req) => {
     }
   });
 
+  /* GET posts */
+app.get('/search', async (req, res) => {
+  // We look for a query parameter "search"
+  const { search } = req.query;
+  let posts;
+  if (search) { // If search exists, the user typed in the search bar
+    posts = await Message.aggregate(
+      [
+        {
+          '$search': {
+            'index': 'default', 
+            'text': {
+              'query': search, 
+              'path': 'text'
+            }
+          }
+        }, {
+          '$project': {
+            'sender': 1, 
+            'recipient': 1,
+            'text': 1,
+            'createdAt': 1
+          }
+        }
+      ]
+    );
+  } else { // The search is empty so the value of "search" is undefined
+    
+  }
+
+  return res.status(200).json({
+    statusCode: 200,
+    message: 'Fetched messages',
+    data: { posts },
+  });
+});
   // notify everyone about online people (when someone connects)
   notifyAboutOnlinePeople();
 });

@@ -1,10 +1,13 @@
 import {useContext, useEffect, useRef, useState} from "react";
+import { Link } from "react-router-dom";
 import Avatar from "./Avatar";
 import Logo from "./Logo";
 import {UserContext} from "./UserContext.jsx";
 import {uniqBy} from "lodash";
 import axios from "axios";
 import Contact from "./Contact";
+import Search from "./Search";
+
 
 export default function Chat() {
   const [ws,setWs] = useState(null);
@@ -14,6 +17,7 @@ export default function Chat() {
   const [newMessageText,setNewMessageText] = useState('');
   const [messages,setMessages] = useState([]);
   const {username,id,setId,setUsername} = useContext(UserContext);
+  const [isClicked, setClick] = useState(false);
   const divUnderMessages = useRef();
   useEffect(() => {
     connectToWs();
@@ -54,6 +58,9 @@ export default function Chat() {
       setUsername(null);
     });
   }
+  
+  
+
   function sendMessage(ev, file = null) {
     if (ev) ev.preventDefault();
     ws.send(JSON.stringify({
@@ -153,6 +160,7 @@ export default function Chat() {
           <button
             onClick={logout}
             className="text-sm bg-blue-100 py-1 px-2 text-gray-500 border rounded-sm">logout</button>
+          
         </div>
       </div>
       <div className="flex flex-col bg-blue-50 w-2/3 p-2">
