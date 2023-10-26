@@ -9,7 +9,6 @@ export default function Routes() {
 
   if (username) {
     return <Chat />;
-    //return <Search />
   }
 
   return (
