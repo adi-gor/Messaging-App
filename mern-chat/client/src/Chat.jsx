@@ -6,7 +6,7 @@ import {UserContext} from "./UserContext.jsx";
 import {uniqBy} from "lodash";
 import axios from "axios";
 import Contact from "./Contact";
-import Search from "./Search";
+
 
 
 export default function Chat() {
