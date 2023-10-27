@@ -1,2 +1,2 @@
 # DirectSocial
-Send private messages and documents to other users of the site.
+Send private messages and documents to other users of the site. Search for keywords in a message by going to /search route in the backend and making GET request. For Example: /search?search=hello.
